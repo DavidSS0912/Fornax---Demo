@@ -1,0 +1,14 @@
+{
+  "cross_selling": {
+    "temperature": 0.5,
+    "min_similarity": 0.35
+  },
+  "chat_tecnico": {
+    "temperature": 0.3,
+    "num_ctx": 4096,
+    "num_predict": 256
+  },
+  "sistema": {
+    "keep_alive": "30m"
+  }
+}

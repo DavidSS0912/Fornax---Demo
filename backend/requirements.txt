@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+lancedb
+duckdb
+sentence-transformers
+pyarrow
+pandas
+numpy
+requests
+pylance
+lance
