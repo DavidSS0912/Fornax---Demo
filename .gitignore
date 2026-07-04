@@ -39,3 +39,8 @@ out/
 .DS_Store
 Thumbs.db
 *.exe
+
+# Python
+venv/
+__pycache__/
+*.pyc

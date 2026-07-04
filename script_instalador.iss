@@ -47,7 +47,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 [Files]
 Source: "C:\Users\delloptiplex\Downloads\Fornax1.1\dist\Fornax_CRM\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\delloptiplex\Downloads\Fornax1.1\dist\Fornax_CRM\_internal\*"; DestDir: "{app}\_internal"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Users\delloptiplex\Downloads\Fornax1.1\OllamaSetup.exe"; DestDir: "{tmp}"; Flags: ignoreversion deleteafterinstall
+Source: "C:\Users\delloptiplex\Downloads\Fornax1.1\OllamaSetup.exe"; DestDir: "{tmp}"; Flags: ignoreversion deleteafterinstall; Check: not IsOllamaInstalled
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
@@ -55,6 +55,12 @@ Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 
 [Run]
-Filename: "{tmp}\OllamaSetup.exe"; Parameters: "/SILENT"; Description: "Instalando motor de Inteligencia Artificial (Ollama)"; Flags: waituntilterminated
-Filename: "{localappdata}\Programs\Ollama\ollama.exe"; Parameters: "pull phi3"; Description: "Descargando modelo de Inteligencia Artificial phi3 (Puede tardar varios minutos)"; Flags: waituntilterminated
+Filename: "{tmp}\OllamaSetup.exe"; Parameters: "/SILENT"; Description: "Instalando motor de Inteligencia Artificial (Ollama)"; Flags: waituntilterminated; Check: not IsOllamaInstalled
+Filename: "{localappdata}\Programs\Ollama\ollama.exe"; Parameters: "pull phi3"; Description: "Descargando modelo de Inteligencia Artificial phi3 (Puede tardar varios minutos)"; Flags: waituntilterminated; Check: not IsOllamaInstalled
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+
+[Code]
+function IsOllamaInstalled: Boolean;
+begin
+  Result := FileExists(ExpandConstant('{localappdata}\Programs\Ollama\ollama.exe'));
+end;
